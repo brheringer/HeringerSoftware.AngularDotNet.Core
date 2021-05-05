@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>MetalSoft.Core.Security</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MetalSoft.Core.Model">
+      <HintPath>..\Model\bin\Debug\netcoreapp2.1\MetalSoft.Core.Model.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

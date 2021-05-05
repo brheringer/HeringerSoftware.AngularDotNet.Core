@@ -1,0 +1,7 @@
+import { Entity } from '../metalsoft-core/model/entity';
+import { EntityReference } from '../metalsoft-core/model/entity-reference';
+{{IMPORT_MODELS}}
+
+export class {{ENTITY}} extends Entity {
+{{PROPERTIES}}
+}

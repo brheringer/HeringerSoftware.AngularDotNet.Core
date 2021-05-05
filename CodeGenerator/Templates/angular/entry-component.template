@@ -1,0 +1,90 @@
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
+import { EntityReference } from '../../metalsoft-core/model/entity-reference';
+import { EntitiesReferences } from '../../metalsoft-core/model/entities-references';
+
+import { AlertService } from '../../metalsoft-core/local-services/alert.service';
+import { {{ENTITY}} } from '../../model/{{LOWER_ENTITY}}.model';
+{{IMPORT_COMPOSITIONS}}
+{{SNIPPET:IMPORT_COMPOSITIONS}}import { {{COMPOSITION_ENTITY}} } from '../../model/{{LOWER_COMPOSITION_ENTITY}}.model';{{END-SNIPPET:IMPORT_COMPOSITIONS}}
+import { {{ENTITY}}Service } from '../../services/{{LOWER_ENTITY}}.service';
+
+@Component({
+  selector: '{{LOWER_ENTITY}}-entry',
+  templateUrl: './{{LOWER_ENTITY}}-entry.component.html',
+  styleUrls: ['./{{LOWER_ENTITY}}-entry.component.css'],
+  providers: [{{ENTITY}}Service]
+})
+export class {{ENTITY}}EntryComponent implements OnInit {
+
+  public model = new {{ENTITY}}();
+{{POSSIBLE_VALUES_FOR_ENUMS}}
+{{SNIPPET:POSSIBLE_VALUES_FOR_ENUMS}}public possibleValuesFor{{PROPERTY}} = {{ENUM}}.All;{{END-SNIPPET:POSSIBLE_VALUES_FOR_ENUMS}}
+
+  constructor(
+    private service: {{ENTITY}}Service,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router) { }
+
+  ngOnInit() {
+    let id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id != NaN && id > 0)
+      this.load(id);
+    else
+      this.createNew();
+  }
+
+  load(id: number): void {
+    this.service.get(id).subscribe(dto => {
+      if (!dto.response.hasException) {
+        this.model = dto;
+      }
+    });
+  }
+
+  update(): void {
+    this.service.update(this.model).subscribe(dto => {
+      if (!dto.response.hasException) {
+        this.alertService.success('Update {{ENTITY}} ok!');
+        this.model = dto; //refresh
+      }
+    });
+  }
+
+  delete(): void {
+    this.service.delete(this.model.autoId).subscribe(dto => {
+      if (!dto.response.hasException) {
+        this.alertService.success('Delete {{ENTITY}} ok!');
+        this.model = dto; //refresh
+      }
+    });
+  }
+
+  createNew(): void {
+    this.model = new {{ENTITY}}();
+  }
+
+  search() : void {
+    this.router.navigateByUrl('/{{LOWER_COLLECTION}}');
+  }
+
+  isPersistent(): boolean {
+    return this.model.autoId > 0;
+  }
+
+{{COMPOSITIONS_METHODS}}
+{{SNIPPET:COMPOSITIONS_METHODS}}
+removeFrom{{PROPERTY}}(index: number): void {
+  this.model.{{LOWER_PROPERTY}}[index].deleteMe = true;
+}
+
+addTo{{PROPERTY}}(): void {
+  this.model.{{LOWER_PROPERTY}}.push(new {{COMPOSITION_ENTITY}}());
+}
+{{END-SNIPPET:COMPOSITIONS_METHODS}}
+}

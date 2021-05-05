@@ -1,0 +1,12 @@
+using MetalSoft.Core.DataTransferObjects;
+using System;
+using System.Collections.Generic;
+
+namespace MetalSoft.{{APPLICATION}}.DataTransferObjects
+{
+	public class {{COLLECTION}}Dto
+		: CollectionDto<{{ENTITY}}Dto>
+	{
+{{PROPERTIES}}
+	}
+}

@@ -1,0 +1,55 @@
+<div class="container">
+
+  <h1>Login</h1>
+
+  <div *ngIf="!isLoggedIn">
+    <form #thisForm="ngForm" >
+      <div class="form-group">
+        <label for="fieldUserName">User Name</label>
+        <input type="text" class="form-control" id="fieldUserName" name="fieldUserName"
+               [disabled]="showSpinner"
+               [(ngModel)]="model.userName"
+               #name="ngModel"
+               required autofocus>
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          User name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fieldPassword">Password</label>
+        <input type="password" class="form-control" id="fieldPassword" name="fieldPassword"
+               [disabled]="showSpinner"
+               [(ngModel)]="model.password"
+               #password="ngModel"
+               required>
+        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+          Password is required
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success"
+              [disabled]="!thisForm.form.valid || showSpinner"
+              (click)="doLogin()">
+        Login
+      </button>
+      <div class="spinner-border text-primary" role="status" *ngIf="showSpinner"></div>
+
+    </form>
+  </div>
+
+  <div *ngIf="isLoggedIn">
+    <p>
+      Bem vindo, {{model.userName}}!
+    </p>
+
+    <button type="submit" class="btn btn-success"
+            (click)="doLogout()">
+      Logout
+    </button>
+
+  </div>
+
+</div>
+
+<ngx-spinner type="timer">Aguarde...</ngx-spinner>

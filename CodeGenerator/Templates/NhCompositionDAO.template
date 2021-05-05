@@ -1,0 +1,18 @@
+using MetalSoft.Core.Persistence.NhPersistence;
+using MetalSoft.{{APPLICATION}}.Model;
+using NHibernate;
+using NHibernate.Criterion;
+using System;
+using System.Collections.Generic;
+
+namespace MetalSoft.{{APPLICATION}}.Persistence.NhPersistence
+{
+	public class Nh{{ENTITY}}DAO
+		: NHibernateDAO<{{ENTITY}}>, {{ENTITY}}DAO
+	{
+		public Nh{{ENTITY}}DAO(ISession session)
+			: base(session)
+		{
+		}
+	}
+}

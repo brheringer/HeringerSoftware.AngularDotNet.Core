@@ -1,0 +1,91 @@
+<div>
+  <div>
+      <button class="btn msf-toolbar-button" title="Novo"
+              (click)="createNew()">
+        <img src="../../../assets/new_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="Pesquisar"
+              (click)="search()">
+        <img src="../../../assets/search_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="{{model|json}}">
+        <img src="../../../assets/bug_24px.svg">
+      </button>
+  </div>
+
+  <div class="msf-form-title">Pesquisa de {{COLLECTION_LABEL}}</div>
+
+  <form class="msf-form" #thisForm="ngForm">
+{{PROPERTIES}}
+<!--FIELD:TEXT-->
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.filter{{PROPERTY}}"
+                            (textChange)="searchAsYouType()"
+                            [label]="'{{PROPERTY_LABEL}}'"
+                            [tip]="'{{PROPERTY_TIP}}'"></metalsoft-text-field>
+    </div>
+<!--END-FIELD:TEXT-->
+<!--FIELD:NUMBER-->
+    <div class="form-group col-lg-10">
+      <metalsoft-number-field [(model)]="model.filter{{PROPERTY}}"
+                              (modelChange)="searchAsYouType()"
+                              [label]="'{{PROPERTY_LABEL}}'"
+                              tip="'{{PROPERTY_TIP}}'"></metalsoft-number-field>
+    </div>
+<!--END-FIELD:NUMBER-->
+<!--FIELD:DATE-->
+    <div class="form-group col-lg-10">
+      <metalsoft-date-field [(date)]="model.filter{{PROPERTY}}"
+                            (dateChange)="searchAsYouType()"
+                            [label]="'{{PROPERTY_LABEL}}'"
+                            [tip]="'{{PROPERTY_TIP}}'"></metalsoft-date-field>
+    </div>
+<!--END-FIELD:DATE-->
+<!--FIELD:SELECT-->
+    <div class="form-group col-lg-10">
+      <metalsoft-select-field [(item)]="model.filter{{PROPERTY}}"
+                              [items]="possibleValuesFor{{PROPERTY}}.references"
+                              [comparerFunction]="compareEntities"
+                              (itemChange)="searchAsYouType()"
+                              [label]="'{{PROPERTY_LABEL}}'"
+                              [tip]="'{{PROPERTY_TIP}}'"></metalsoft-select-field>
+    </div>
+<!--END-FIELD:SELECT-->
+<!--FIELD:SELECT-PRIMITIVE-->
+    <div class="form-group col-lg-10">
+      <metalsoft-select-primitive-field [(item)]="model.filter{{PROPERTY}}"
+                                        (itemChange)="searchAsYouType()"
+                                        [items]="possibleValuesFor{{PROPERTY}}"
+                                        [label]="'{{PROPERTY_LABEL}}'"
+                                        [tip]="'{{PROPERTY_TIP}}'"></metalsoft-select-primitive-field>
+    </div>
+<!--END-FIELD:SELECT-PRIMITIVE-->
+<!--FIELD:SMART-SEARCH-->
+    <div class="form-group col-lg-10">
+      <metalsoft-smart-search-field [(model)]="model.filter{{PROPERTY}}"
+                                    (modelChange)="searchAsYouType()"
+                                    [targetService]="'{{TARGET_SERVICE}}'"
+                                    [label]="'{{PROPERTY_LABEL}}'"
+                                    [tip]="'{{PROPERTY_TIP}}'"></metalsoft-smart-search-field>
+    </div>
+<!--END-FIELD:SMART-SEARCH-->
+</form>
+
+    <table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+{{GRID_HEADERS}}
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of model.items">
+          <td><button class="btn msf-toolbar-button" (click)="expand(i.autoId)"><img src="../../..//assets/search_24px.svg" /></button></td>
+{{GRID_CELLS}}
+        </tr>
+      </tbody>
+    </table>
+
+</div>

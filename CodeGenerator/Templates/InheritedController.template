@@ -1,0 +1,53 @@
+using MetalSoft.Core.DataTransferObjects;
+using MetalSoft.Core.Persistence;
+using MetalSoft.Core.WebAPI;
+using MetalSoft.Core.WebAPI.Controllers;
+using MetalSoft.Core.WebAPI.Wrappers;
+using MetalSoft.Riscos.DataTransferObjects;
+using MetalSoft.Riscos.Model;
+using MetalSoft.Riscos.Persistence;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System;
+
+namespace MetalSoft.{{APPLICATION}}.WebAPI.Controllers
+{
+	[Route("api/[controller]")]
+	public class {{ENTITY}}Controller
+		: GenericController<{{ENTITY}}Dto, {{ENTITY}}>
+	{
+		public {{ENTITY}}Controller(IOptions<AppSettings> appSettings, TransactionManagerFactory tmf)
+			: base(appSettings, tmf)
+		{
+		}
+
+		protected override DAO<{{ENTITY}}> GetDAO(DAOFactory daoFactory)
+		{
+			return (({{APPLICATION}}DAOFactory)daoFactory).{{ENTITY}}DAO;
+		}
+
+		[HttpPost]
+		[Route("search")]
+		public IActionResult Search([FromBody]{{COLLECTION}}Dto dto)
+		{
+			return Ok(InvokeCommandInsideTransaction(daoFactory => Search(daoFactory, dto)));
+		}
+
+		private {{COLLECTION}}Dto Search(DAOFactory daoFactory, {{COLLECTION}}Dto dto)
+		{
+			if (dto == null)
+				throw new ArgumentNullException(nameof(dto));
+			{{ENTITY}}DAO dao = (({{APPLICATION}}DAOFactory)daoFactory).{{ENTITY}}DAO;
+{{SOLVE_PROXIES_FOR_SEARCH}}<!--SNIPPET:SOLVE_PROXY_FOR_SEARCH-->
+			{{PROPERTY-TYPE}} filter{{PROPERTY}} = SolveProxy(appDaoFactory.{{PROPERTY-TYPE}}DAO, dto.Filter{{PROPERTY}});
+<!--END-SNIPPET:SOLVE_PROXY_FOR_SEARCH-->
+{{SOLVE_ENUM_FOR_SEARCH}}<!--SNIPPET:SOLVE_ENUM_FOR_SEARCH-->
+			{{PROPERTY-TYPE}}? filter{{PROPERTY}} = EntityWrapper.ParseEnum<{{PROPERTY-TYPE}}>(dto.Filter{{PROPERTY}});
+<!--END-SNIPPET:SOLVE_ENUM_FOR_SEARCH-->
+
+			var items = dao.Search({{FILTERS}});
+
+			return EntityWrapper.Wrap<{{COLLECTION}}Dto, {{ENTITY}}Dto, {{ENTITY}}>(items);
+		}
+	}
+}

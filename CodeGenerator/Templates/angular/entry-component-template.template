@@ -1,0 +1,141 @@
+<div>
+
+  <div>
+    <div class="msf-toolbar">
+      <button class="btn msf-toolbar-button" title="Salvar"
+              [disabled]="!thisForm.form.valid"
+              (click)="update()">
+        <img src="../../../assets/save_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="Excluir"
+              [disabled]="model.isPersistent && !model.isPersistent()"
+              (click)="delete()">
+        <img src="../../../assets/remove_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="Novo"
+              (click)="createNew()">
+        <img src="../../../assets/new_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="Pesquisar"
+              (click)="search()">
+        <img src="../../../assets/back_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="{{model|json}}">
+        <img src="../../../assets/bug_24px.svg">
+      </button>
+    </div>
+  </div>
+
+  <div class="msf-form-title">{{ENTITY_LABEL}}</div>
+
+  <form class="msf-form" #thisForm="ngForm">
+{{PROPERTIES}}
+<!--FIELD:TEXT-->
+<div class="form-group col-lg-10">
+  <metalsoft-text-field [(text)]="model.{{LOWER_PROPERTY}}"
+                        [label]="'{{PROPERTY_LABEL}}'"
+                        [tip]="'{{PROPERTY_TIP}}'"
+                        [required]="{{PROPERTY_REQUIRED}}"></metalsoft-text-field>
+</div>
+<!--END-FIELD:TEXT-->
+<!--FIELD:TEXT-AREA-->
+<div class="form-group col-lg-10">
+  <metalsoft-text-area-field [(text)]="model.{{LOWER_PROPERTY}}"
+                             [label]="'{{PROPERTY_LABEL}}'"
+                             [tip]="'{{PROPERTY_TIP}}'"
+                             [required]="{{PROPERTY_REQUIRED}}"></metalsoft-text-area-field>
+</div>
+<!--END-FIELD:TEXT-AREA-->
+<!--FIELD:NUMBER-->
+<div class="form-group col-lg-10">
+  <metalsoft-number-field [(model)]="model.{{LOWER_PROPERTY}}"
+                          [label]="'{{PROPERTY_LABEL}}'"
+                          [tip]="'{{PROPERTY_TIP}}'"
+                          [required]="{{PROPERTY_REQUIRED}}"></metalsoft-number-field>
+</div>
+<!--END-FIELD:NUMBER-->
+<!--FIELD:SELECT-->
+<div class="form-group col-lg-10">
+  <metalsoft-select-entity-field [(item)]="model.{{LOWER_PROPERTY}}"
+                                 [items]="possibleValuesFor{{LOWER_PROPERTY}}.references"
+                                 [comparerFunction]="compareEntities"
+                                 [label]="'{{PROPERTY_LABEL}}'"
+                                 [tip]="'{{PROPERTY_TIP}}'"
+                                 [required]="{{PROPERTY_REQUIRED}}"></metalsoft-select-entity-field>
+</div>
+<!--END-FIELD:SELECT-->
+<!--FIELD:SELECT-PRIMITIVE-->
+<div class="form-group col-lg-10">
+  <metalsoft-select-primitive-field [(item)]="model.{{LOWER_PROPERTY}}"
+                                    [items]="possibleValuesFor{{UPPER_PROPERTY}}"
+                                    [label]="'{{PROPERTY_LABEL}}'"
+                                    [tip]="'{{PROPERTY_TIP}}'"
+                                    [required]="{{PROPERTY_REQUIRED}}"></metalsoft-select-primitive-field>
+</div>
+<!--END-FIELD:SELECT-PRIMITIVE-->
+<!--FIELD:SMART-SEARCH-->
+<div class="form-group col-lg-10">
+  <metalsoft-smart-search-field [(model)]="model.{{LOWER_PROPERTY}}"
+                                [targetService]="'{{TARGET_SERVICE}}'"
+                                [label]="'{{PROPERTY_LABEL}}'"
+                                [tip]="'{{PROPERTY_TIP}}'"
+                                [required]="{{PROPERTY_REQUIRED}}"></metalsoft-smart-search-field>
+</div>
+<!--END-FIELD:SMART-SEARCH-->
+<!--FIELD:DATE-->
+<div class="form-group col-lg-10">
+  <metalsoft-date-field [(date)]="model.{{LOWER_PROPERTY}}"
+                        [label]="'{{PROPERTY_LABEL}}'"
+                        [tip]="'{{PROPERTY_TIP}}'"
+                        [required]="{{PROPERTY_REQUIRED}}"></metalsoft-date-field>
+</div>
+<!--END-FIELD:DATE-->
+
+{{COMPOSITIONS}}
+<!--SNIPPET:COMPOSITION-->
+    <div class="msf-grid-title">{{PROPERTY_LABEL}}</div>
+
+    <table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th></th>
+{{GRID_HEADERS}}
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let child of model.{{LOWER_PROPERTY}}; index as i">
+          <tr *ngIf="!child.deleteMe">
+            <td>
+              <button class="btn msf-toolbar-button"
+                      (click)="removeFrom{{UPPER_PROPERTY}}(i)">
+                <img src="assets/delete_24px.svg" />
+              </button>
+            </td>
+{{GRID_CELLS}}
+          </tr>
+        </ng-container>
+        <tr class="bg-dark text-white">
+          <td>
+            <button class="btn msf-toolbar-button"
+                    (click)="addTo{{UPPER_PROPERTY}}()">
+              <img src="assets/add_24px.svg">
+            </button>
+          </td>
+          <td colspan="2">{{model.{{LOWER_PROPERTY}}.length}} itens.</td>
+        </tr>
+      </tbody>
+    </table>
+<!--END-SNIPPET:COMPOSITION-->
+
+  </form>
+</div>
+
+  <!--TODO date-->
+  <!--TODO date time-->
+  <!--TODO time-->
+  <!--TODO grid-->
+  <!--TODO smart search-->

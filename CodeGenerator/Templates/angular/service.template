@@ -1,0 +1,39 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { EntitiesReferences } from '../metalsoft-core/model/entities-references';
+import { GenericService } from '../metalsoft-core/services/generic.service';
+
+import { {{ENTITY}} } from '../model/{{LOWER_ENTITY}}.model';
+import { {{COLLECTION}} } from '../model/{{LOWER_COLLECTION}}.model';
+
+@Injectable()
+export class {{ENTITY}}Service {
+
+  uri = '{{ENTITY}}';
+
+  constructor(private generic: GenericService) { }
+
+  delete(id: number): Observable<{{ENTITY}}>
+  {
+    return this.generic.delete<{{ENTITY}}>(this.uri, id);
+  }
+
+  get(id: number): Observable<{{ENTITY}}> {
+    return this.generic.get<{{ENTITY}}>(this.uri, id);
+  }
+
+  loadAllAsReferences(): Observable<EntitiesReferences>
+  {
+    return this.generic.getAll<EntitiesReferences>(`${this.uri}/all`);
+  }
+
+  search(dto: {{COLLECTION}}): Observable<{{COLLECTION}}> {
+    return this.generic.post<{{COLLECTION}}>(`${this.uri}/search`, dto);
+  }
+
+  update(dto: {{ENTITY}}): Observable<{{ENTITY}}> {
+    return this.generic.post<{{ENTITY}}>(this.uri, dto);
+  }
+
+}

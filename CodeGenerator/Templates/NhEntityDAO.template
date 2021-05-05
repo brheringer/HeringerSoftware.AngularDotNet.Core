@@ -1,0 +1,41 @@
+using MetalSoft.Core.Persistence.NhPersistence;
+using MetalSoft.{{APPLICATION}}.Model;
+using NHibernate;
+using NHibernate.Criterion;
+using System;
+using System.Collections.Generic;
+
+namespace MetalSoft.{{APPLICATION}}.Persistence.NhPersistence
+{
+	public class Nh{{ENTITY}}DAO
+		: NHibernateDAO<{{ENTITY}}>, {{ENTITY}}DAO
+	{
+		public Nh{{ENTITY}}DAO(ISession session)
+			: base(session)
+		{
+		}
+
+		public IList<{{ENTITY}}> Search({{FILTERS}})
+		{
+			var query = this.SessionInstance.QueryOver<{{ENTITY}}>();
+{{APPLY_FILTERS}}
+/*BEGIN_FILTER_TEMPLATE_STRING_ANYWHERE*/
+			if (FilterHelper.IsFilterUsed(filter{{PROPERTY}}))
+				query.WhereRestrictionOn(x => x.{{PROPERTY}}).IsLike(filter{{PROPERTY}}, MatchMode.Anywhere);
+/*END_FILTER_TEMPLATE_STRING_ANYWHERE*/
+/*BEGIN_FILTER_TEMPLATE_EQUAL*/
+			if (FilterHelper.IsFilterUsed(filter{{PROPERTY}}))
+				query.Where(x => x.{{PROPERTY}} == filter{{PROPERTY}});
+/*END_FILTER_TEMPLATE_EQUAL*/
+			query.OrderBy(x => x.AutoId).Desc();
+
+			if (this.SearchLimit > 0)
+				query.Take(this.SearchLimit);
+
+			if (this.SearchPage > 0)
+				throw new NotImplementedException();
+
+			return query.List();
+		}
+	}
+}

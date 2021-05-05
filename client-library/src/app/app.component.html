@@ -1,0 +1,91 @@
+<h1>
+  Sandbox da biblioteca metalsoft-core.
+</h1>
+<h2>A biblioteca foi empacotada conforme essas instruções: </h2>
+<ul>
+  <li>
+    <h2><a href="https://blog.angularindepth.com/creating-a-library-in-angular-6-87799552e7e5">Parte 1</a></h2>
+  </li>
+  <li>
+    <h2><a href="https://blog.angularindepth.com/creating-a-library-in-angular-6-part-2-6e2bc1e14121">Parte 2</a></h2>
+  </li>
+</ul>
+<hr>
+
+<div class="container row">
+  <div class="col-12">
+    <button class="btn" (click)="model.globalDisabled = !model.globalDisabled">{{model.globalDisabled ? 'Enable All' : 'Disable All'}}</button>
+  </div>
+
+  <div class="col-6">
+    <metalsoft-text-field [(text)]="model.textProperty" class="p-2"
+                          (textChange)="changed(model.textProperty)"
+                          label="Text Field"
+                          tip="This is a required text field tooltip!"
+                          [required]="true"
+                          [disabled]="model.globalDisabled"></metalsoft-text-field>
+    <metalsoft-text-area-field [(text)]="model.anotherTextProperty" class="p-2"
+                              (textChange)="changed(model.anotherTextProperty)"
+                              label="Text Area Field"
+                              tip="This is a required text area field tooltip!"
+                              [required]="true"
+                              [disabled]="model.globalDisabled"></metalsoft-text-area-field>
+    <metalsoft-boolean-field [(booleanValue)]="model.booleanProperty" class="p-2"
+                            (booleanValueChange)="changed(model.booleanProperty)"
+                            label="Boolean Field"
+                            tip="This is a boolean field tooltip!"
+                            [disabled]="model.globalDisabled"></metalsoft-boolean-field>
+    <metalsoft-date-field [(date)]="model.dateProperty" class="p-2"
+                          (dateChange)="changed(model.dateProperty)"
+                          label="Date Field"
+                          tip="This is a required date field tooltip!"
+                          [required]="true"
+                          [disabled]="model.globalDisabled"></metalsoft-date-field>
+    <metalsoft-number-field [(model)]="model.numberProperty" class="p-2"
+                            (modelChange)="changed(model.numberProperty)"
+                            label="Number Field"
+                            tip="This is a required number field tooltip!"
+                            [required]="true"
+                            [disabled]="model.globalDisabled"></metalsoft-number-field>
+  </div>
+  <div class="col-6">
+    <metalsoft-select-primitive-field [(item)]="model.state" class="p-2"
+                                      (itemChange)="changed(model.state)"
+                                      [items]="states"
+                                      label="State"
+                                      tip="This is a required select primitive field."
+                                      [required]="true"
+                                      [disabled]="model.globalDisabled"></metalsoft-select-primitive-field>
+    <metalsoft-select-entity-field [(item)]="model.entityProperty" class="p-2"
+                                    (itemChange)="changed(model.entityProperty)"
+                                    [items]="entities"
+                                    label="Select Entity"
+                                    tip="This is a required select entity field."
+                                    [required]="true"
+                                    [disabled]="model.globalDisabled"></metalsoft-select-entity-field>
+    <metalsoft-smart-search-field [(model)]="model.anotherEntityProperty" class="p-2"
+                                  (modelChange)="changed(model.anotherEntityProperty)"
+                                  label="Smart Search"
+                                  tip="This is a required smart search field."
+                                  [fnTargetService]="mockedService"
+                                  [required]="true"
+                                  [disabled]="model.globalDisabled"
+                                  [ignitionMilisseconds]="300"
+                                  [ignitionMinChars]="2"></metalsoft-smart-search-field>
+    <metalsoft-rich-label label="Labels aren't that cool, but they exist." class="p-2"
+                          tip="I told you: labels aren't that cool, but they do exist."
+                          icon="text"></metalsoft-rich-label>
+  </div>
+</div>
+<hr>
+
+<!--TODO: login, change-password, user-entry, user-profile-entry, users-list, users-profiles-list -->
+{{model|json}}
+
+<hr>
+
+<login></login>
+
+<hr>
+<alert></alert>
+<router-outlet></router-outlet>

@@ -1,0 +1,27 @@
+<div class="input-group mb-2 mb-sm-0">
+  <div class="input-group-prepend">
+    <div *ngIf="label" class="input-group-text msf-field-type-addon"><img src="assets/smart-search_24px.svg" /></div>
+    <div *ngIf="label" class="input-group-text msf-field-label-addon">{{label}}</div>
+  </div>
+  <input type="text" class="form-control field-combo" id="field-TODO-NAME" name="field-TODO-NAME"
+         [ngModel]="model"
+         (ngModelChange)="changeModel($event)"
+         [ngbTypeahead]="searchAsYouType"
+         [inputFormatter]="format"
+         [resultFormatter]="format"
+         [showHint]="true"
+         [editable]="false"
+         #name="ngModel"
+         [required]="required ? true : false"
+         [disabled]="disabled ? true : false">
+  <div *ngIf="label" class="input-group-append">
+    <div class="input-group-text msf-field-help-addon">
+      <img src="assets/help_24px.svg"
+           [title]="tip" />
+    </div>
+    <div [hidden]="name.valid || name.pristine || name.untouched" class="msf-field-invalid-msg">
+      Campo obrigatório.
+    </div>
+    <span *ngIf="searching">searching...</span>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+import { Collection } from '../metalsoft-core/model/collection';
+import { EntityReference } from '../metalsoft-core/model/entity-reference';
+import { {{ENTITY}} } from './{{LOWER_ENTITY}}.model';
+
+export class {{COLLECTION}} extends Collection {
+{{FILTERS}}
+  items: Array<{{ENTITY}}>;
+}

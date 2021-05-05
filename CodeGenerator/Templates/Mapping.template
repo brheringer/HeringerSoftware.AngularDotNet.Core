@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="MetalSoft.{{APPLICATION}}.Model"
+				   namespace="MetalSoft.{{APPLICATION}}.Model">
+
+	<class name="{{ENTITY}}">
+		<id name="AutoId" >
+			<generator class="native"  />
+		</id>
+
+		<version name="Version" column="Version" />
+		<property name="CreationDateTime" column="TelosRgDt" />
+		<property name="LastUpdateDateTime" column="TelosUpDt" />
+		<property name="CreationUser" column="TelosRgUs" />
+		<property name="LastUpdateUser" column="TelosUpUs" />
+
+{{PROPERTIES}}
+
+	</class>
+
+</hibernate-mapping>
+

@@ -1,0 +1,121 @@
+<div>
+
+  <div>
+    <div class="msf-toolbar">
+      <button type="submit" class="btn msf-toolbar-button" title="Salvar"
+              [disabled]="!thisForm.form.valid"
+              (click)="update()">
+        <img src="assets/save_24px.svg">
+      </button>
+
+      <button type="submit" class="btn msf-toolbar-button" title="Excluir"
+              [disabled]="model.isPersistent && !model.isPersistent()"
+              (click)="delete()">
+        <img src="assets/remove_24px.svg">
+      </button>
+
+      <button type="submit" class="btn msf-toolbar-button" title="Novo"
+              (click)="createNew()">
+        <img src="assets/new_24px.svg">
+      </button>
+
+      <button type="submit" class="btn msf-toolbar-button" title="Pesquisar"
+              (click)="search()">
+        <img src="assets/back_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="{{model|json}}">
+        <img src="assets/bug_24px.svg">
+      </button>
+    </div>
+  </div>
+
+  <div class="msf-form-title">Usuário</div>
+
+  <form class="msf-form" #thisForm="ngForm">
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.userName"
+                            [label]="'Nome de Usuário'"
+                            [tip]="'Nome de usuário.'"
+                            [required]="true"></metalsoft-text-field>
+    </div>
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.realName"
+                            [label]="'Nome Real'"
+                            [tip]="'Nome real.'"
+                            [required]="true"></metalsoft-text-field>
+    </div>
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.email"
+                            [label]="'E-mail'"
+                            [tip]="'E-mail.'"
+                            [required]="true"></metalsoft-text-field>
+    </div>
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.newPassword"
+                            [label]="'Senha'"
+                            [tip]="'Defina uma senha inicial para um novo usuário.'"
+                            [disabled]="isPersistent()"
+                            [required]="!isPersistent()"></metalsoft-text-field>
+    </div>
+
+    <div class="form-group col-lg-10">
+      <metalsoft-boolean-field [(booleanValue)]="model.banished"
+                               [label]="'Banido'"
+                               [tip]="'Banido.'"></metalsoft-boolean-field>
+    </div>
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-area-field [(text)]="model.banishedReason"
+                                 [label]="'Motivo de Banimento'"
+                                 [tip]="'Motivo de banimento.'"
+                                 [disabled]="!model.banished"
+                                 [required]="model.banished"></metalsoft-text-area-field>
+    </div>
+
+    <div class="msf-grid-title">Perfis Atribuídos ao Usuário</div>
+
+    <table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Perfil</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let profileAssignment of model.profilesAssignments; index as i">
+          <tr *ngIf="!profileAssignment.deleteMe">
+            <td>
+              <button class="btn msf-toolbar-button"
+                      (click)="removeItem(i)">
+                <img src="assets/delete_24px.svg" />
+              </button>
+            </td>
+            <td>
+              <metalsoft-smart-search-field [(model)]="profileAssignment.assignedProfile"
+                                            [targetService]="'UserProfile'"
+                                            [label]="''"
+                                            [tip]="''"
+                                            [required]="true"></metalsoft-smart-search-field>
+            </td>
+          </tr>
+        </ng-container>
+        <tr class="bg-dark text-white">
+          <td>
+            <button class="btn msf-toolbar-button"
+                    (click)="newItem()">
+              <img src="assets/add_24px.svg">
+            </button>
+          </td>
+          <td colspan="2">{{model.profilesAssignments.length}} perfil(is).</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </form>
+
+</div>

@@ -1,0 +1,151 @@
+using MetalSoft.Core.DataTransferObjects;
+using MetalSoft.Core.Persistence;
+using MetalSoft.Core.WebAPI;
+using MetalSoft.Core.WebAPI.Controllers;
+using MetalSoft.Core.WebAPI.Wrappers;
+using MetalSoft.Riscos.DataTransferObjects;
+using MetalSoft.Riscos.Model;
+using MetalSoft.Riscos.Persistence;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System;
+
+namespace MetalSoft.{{APPLICATION}}.WebAPI.Controllers
+{
+	[Route("api/[controller]")]
+	public class {{ENTITY}}Controller
+		: TransactionalApiContoller
+	{
+		public {{ENTITY}}Controller(IOptions<AppSettings> appSettings, TransactionManagerFactory tmf)
+			: base(appSettings, tmf)
+		{
+		}
+
+		[HttpGet]
+		public IActionResult Get(int id)
+		{
+			return Ok(InvokeCommandInsideTransaction(daoFactory => Get(daoFactory, id)));
+		}
+
+		private {{ENTITY}}Dto Get(DAOFactory daoFactory, int id)
+		{
+			{{ENTITY}}DAO dao = GetDAO(daoFactory);
+			var entidade = dao.Load(id);
+			return EntityWrapper.Wrap<{{ENTITY}}Dto>(entidade);
+		}
+
+		[HttpPost]
+		public IActionResult Update([FromBody]{{ENTITY}}Dto dto)
+		{
+			return Ok(InvokeCommandInsideTransaction(daoFactory => Update(daoFactory, dto)));
+		}
+
+		private {{ENTITY}}Dto Update(DAOFactory daoFactory, {{ENTITY}}Dto dto)
+		{
+			if (dto == null)
+				throw new ArgumentNullException(nameof(dto));
+			var appDaoFactory = ({{APPLICATION}}DAOFactory)daoFactory;
+			{{ENTITY}}DAO dao = appDaoFactory.{{ENTITY}}DAO;
+
+			//LOAD/WRAP
+			{{ENTITY}} entity = dto.AutoId > 0
+				? dao.Load(dto.AutoId)
+				: new {{ENTITY}}();
+			EntityWrapper.Copy(dto, entity);
+
+{{SOLVE_PROXIES}}
+<!--SNIPPET:SOLVE_PROXY-->
+			entity.{{PROPERTY}} = SolveProxy(appDaoFactory.{{PROPERTY-TYPE}}DAO, dto.{{PROPERTY}});
+<!--END-SNIPPET:SOLVE_PROXY-->
+
+{{COMPOSITIONS}}
+<!--SNIPPET:COMPOSITION-->
+			List<{{COMPOSITION-ENTITY}}> condemned{{PROPERTY}} = new List<{{COMPOSITION-ENTITY}}>();
+			foreach ({{COMPOSITION-ENTITY}}Dto childDto in dto.{{PROPERTY}})
+			{
+				{{COMPOSITION-ENTITY}} childEntity = childDto.AutoId > 0
+					? appDaoFactory.{{COMPOSITION-ENTITY}}DAO.Load(childDto.AutoId)
+					: new {{COMPOSITION-ENTITY}}();
+				EntityWrapper.Copy(childDto, childEntity);
+				//TODO solve proxies
+				if (!childEntity.IsPersistent) 
+				{
+					if (!childDto.DeleteMe)
+						entity.{{PROPERTY}}.Add(childEntity);
+				}
+				else if (childDto.DeleteMe)
+				{
+					entity.{{PROPERTY}}.Remove(childEntity);
+					condemned{{PROPERTY}}.Add(childEntity);
+				}
+			}
+<!--END-SNIPPET:COMPOSITION-->
+
+			//DELEGATE BUSINESS
+			entity.Validate();
+{{COMPOSITIONS-BUSINESS}}
+<!--SNIPPET:COMPOSITION-BUSINESS-->
+			foreach ({{COMPOSITION-ENTITY}} childEntity in entity.{{PROPERTY}})
+				childEntity.Validate();
+<!--END-SNIPPET:COMPOSITION-BUSINESS-->
+
+			//PERSIST
+			dao.Update(entity);
+{{COMPOSITIONS-PERSISTENCE}}
+<!--SNIPPET:COMPOSITION-PERSISTENCE-->
+			foreach ({{COMPOSITION-ENTITY}} childEntity in condemned{{PROPERTY}})
+				appDaoFactory.{{COMPOSITION-ENTITY}}DAO.Delete(childEntity);
+			foreach ({{COMPOSITION-ENTITY}} childEntity in entity.{{PROPERTY}})
+				appDaoFactory.{{COMPOSITION-ENTITY}}DAO.Update(childEntity);
+<!--END-SNIPPET:COMPOSITION-PERSISTENCE-->
+
+			//DELIVER/WRAP
+			{{ENTITY}}Dto dtoAfterUpdate = EntityWrapper.Wrap<{{ENTITY}}Dto>(entity);
+{{COMPOSITIONS-DELIVERY}}
+<!--SNIPPET:COMPOSITION-DELIVERY-->
+			foreach ({{COMPOSITION-ENTITY}} childEntity in entity.{{PROPERTY}})
+				dtoAfterUpdate.{{PROPERTY}}.Add(EntityWrapper.Wrap<{{COMPOSITION-ENTITY}}Dto>(childEntity));
+<!--END-SNIPPET:COMPOSITION-DELIVERY-->
+			return dtoAfterUpdate;
+		}
+
+		[HttpDelete]
+		public {{ENTITY}}Dto Delete(int id)
+		{
+			return InvokeCommandInsideTransaction(daoFactory => Delete(daoFactory, id));
+		}
+
+		private {{ENTITY}}Dto Delete(DAOFactory daoFactory, int id)
+		{
+			var appDaoFactory = (RiscosDAOFactory)daoFactory;
+			{{ENTITY}}DAO dao = appDaoFactory.{{ENTITY}}DAO;
+			{{ENTITY}} entity = dao.Load(id);
+			dao.Delete(entity);
+			return new {{ENTITY}}Dto();
+		}
+
+		[HttpPost]
+		[Route("search")]
+		public IActionResult Search([FromBody]{{COLLECTION}}Dto dto)
+		{
+			return Ok(InvokeCommandInsideTransaction(daoFactory => Search(daoFactory, dto)));
+		}
+
+		private {{COLLECTION}}Dto Search(DAOFactory daoFactory, {{COLLECTION}}Dto dto)
+		{
+			if (dto == null)
+				throw new ArgumentNullException(nameof(dto));
+			var appDaoFactory = (RiscosDAOFactory)daoFactory;
+{{SOLVE_PROXIES_FOR_SEARCH}}<!--SNIPPET:SOLVE_PROXY_FOR_SEARCH-->
+			{{PROPERTY-TYPE}} filter{{PROPERTY}} = SolveProxy(appDaoFactory.{{PROPERTY-TYPE}}DAO, dto.Filter{{PROPERTY}});
+<!--END-SNIPPET:SOLVE_PROXY_FOR_SEARCH-->
+{{SOLVE_ENUM_FOR_SEARCH}}<!--SNIPPET:SOLVE_ENUM_FOR_SEARCH-->
+			{{PROPERTY-TYPE}}? filter{{PROPERTY}} = EntityWrapper.ParseEnum<{{PROPERTY-TYPE}}>(dto.Filter{{PROPERTY}});
+<!--END-SNIPPET:SOLVE_ENUM_FOR_SEARCH-->
+
+			var items = appDaoFactory.{{ENTITY}}DAO.Search({{FILTERS}});
+
+			return EntityWrapper.Wrap<{{COLLECTION}}Dto, {{ENTITY}}Dto, {{ENTITY}}>(items);
+		}
+	}
+}

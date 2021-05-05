@@ -1,0 +1,53 @@
+<div>
+
+  <div>
+    <div class="msf-toolbar">
+      <button type="submit" class="btn msf-toolbar-button" title="Salvar"
+              [disabled]="!thisForm.form.valid"
+              (click)="update()">
+        <img src="assets/save_24px.svg">
+      </button>
+
+      <button type="submit" class="btn msf-toolbar-button" title="Excluir"
+              [disabled]="model.isPersistent && !model.isPersistent()"
+              (click)="delete()">
+        <img src="assets/remove_24px.svg">
+      </button>
+
+      <button type="submit" class="btn msf-toolbar-button" title="Novo"
+              (click)="createNew()">
+        <img src="assets/new_24px.svg">
+      </button>
+
+      <button type="submit" class="btn msf-toolbar-button" title="Pesquisar"
+              (click)="search()">
+        <img src="assets/back_24px.svg">
+      </button>
+
+      <button class="btn msf-toolbar-button" title="{{model|json}}">
+        <img src="assets/bug_24px.svg">
+      </button>
+    </div>
+  </div>
+
+  <div class="msf-form-title">Perfil de Usuário</div>
+
+  <form class="msf-form" #thisForm="ngForm">
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.name"
+                            [label]="'Nome'"
+                            [tip]="'Nome.'"
+                            [required]="true"></metalsoft-text-field>
+    </div>
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-area-field [(text)]="model.description"
+                                 [label]="'Descrição'"
+                                 [tip]="'Descrição do perfil.'"
+                                 [required]="false"></metalsoft-text-area-field>
+    </div>
+
+  </form>
+
+</div>

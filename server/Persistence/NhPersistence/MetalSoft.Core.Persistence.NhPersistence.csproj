@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tests----\**" />
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests----\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Tests----\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Model\MetalSoft.Core.Model.csproj" />
+    <ProjectReference Include="..\MetalSoft.Core.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

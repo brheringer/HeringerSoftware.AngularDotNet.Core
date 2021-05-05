@@ -1,0 +1,118 @@
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.msf-toolbar-button {
+  background-color: #8cc3fc;
+  margin: 10px;
+}
+
+.msf-app-header {
+  background-color: #336699;
+  color: white;
+  font-size: xx-large;
+}
+
+.msf-app-footer {
+  background-color: #333333;
+  color: white;
+  position: fixed;
+  bottom: 0%;
+  z-index: 1000;
+}
+
+.msf-form-title {
+  font-size: x-large;
+  /*background-color: #8cc3fc;*/
+}
+
+.msf-grid-title {
+  font-size: large;
+  /*background-color: #8cc3fc;*/
+}
+
+/*.msf-field-label {
+  margin:0; padding:0;
+}*/
+
+input::placeholder {
+  font-size: smaller;
+}
+
+.msf-field-help-addon {
+  background-color: #d9ecf5;
+}
+
+.msf-field-type-addon {
+  /*background-color: #cccccc;*/
+  vertical-align: text-top; /*nao funcionou*/
+}
+
+.msf-field-label-addon {
+  /*background-color: #cccccc;*/
+  vertical-align: text-top; /*nao funcionou*/
+}
+
+.msf-field-invalid-msg {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  border-radius: .25rem;
+  border: 1px solid transparent;
+  padding: 0 1em 0 1em;
+}
+
+p{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h2{
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.msf-table {
+  margin: 0 5px;
+  width: 300px;
+  background: #ffffff;
+  font-family: Helvetica, sans-serif;
+  text-align: justify;
+  border-top: 3px solid #336699;
+  border-bottom: 3px solid #336699;
+}
+.msf-table span {
+  display: block;
+}
+.msf-table-head {
+  padding: 25px 0;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  background: #376EA6;
+  text-align: center;
+}
+.msf-table-row {
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #888;
+}
+.msf-table-row:nth-child(2n) {
+  background: #f2f2f2;
+}
+
+.msf-btn{
+  background: #4C99E5;
+}
+
+/*
+http://www.color-hex.com/color-palette/19241
+Color Hex RGB #336699 (51,102,153) #8cc3fc (140,195,252) #d9ecf5 (217,236,245) #cccccc (204,204,204) #333333 (51,51,51)
+*/

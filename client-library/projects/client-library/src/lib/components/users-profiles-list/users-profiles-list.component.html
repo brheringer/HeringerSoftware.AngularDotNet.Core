@@ -1,0 +1,42 @@
+<div>
+  <div>
+    <button type="submit" class="btn msf-toolbar-button" title="Novo"
+            (click)="createNew()">
+      <img src="assets/new_24px.svg">
+    </button>
+
+    <button type="submit" class="btn msf-toolbar-button" title="Pesquisar"
+            (click)="search()">
+      <img src="assets/search_24px.svg">
+    </button>
+  </div>
+
+  <div class="msf-form-title">Pesquisa de Perfis de Usuários</div>
+
+  <form class="msf-form" #thisForm="ngForm">
+
+    <div class="form-group col-lg-10">
+      <metalsoft-text-field [(text)]="model.filterName"
+                            (textChange)="searchAsYouType()"
+                            [label]="'Nome do perfil.'"
+                            [tip]="'Filtro por nome do perifl.'"></metalsoft-text-field>
+    </div>
+
+  </form>
+
+  <table class="table table-responsive table-striped">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of model.items">
+        <td><button class="btn msf-toolbar-button" (click)="expand(i.id)"><img src="assets/search_24px.svg" /></button></td>
+        <td>{{i.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

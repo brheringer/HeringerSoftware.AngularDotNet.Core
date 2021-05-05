@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>HeringerSoftware.AngularDotNet.Core.Persistence</AssemblyName>
+    <RootNamespace>HeringerSoftware.AngularDotNet.Core.Persistence</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EFPersistence\**" />
+    <Compile Remove="InMemoryPersistence\**" />
+    <Compile Remove="NhPersistence\**" />
+    <EmbeddedResource Remove="EFPersistence\**" />
+    <EmbeddedResource Remove="InMemoryPersistence\**" />
+    <EmbeddedResource Remove="NhPersistence\**" />
+    <None Remove="EFPersistence\**" />
+    <None Remove="InMemoryPersistence\**" />
+    <None Remove="NhPersistence\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Model\HeringerSoftware.AngularDotNet.Core.Model.csproj" />
+  </ItemGroup>
+
+</Project>

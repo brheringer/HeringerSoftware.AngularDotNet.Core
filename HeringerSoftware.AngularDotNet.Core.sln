@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.Model", "server\Model\HeringerSoftware.AngularDotNet.Core.Model.csproj", "{68679B73-B36D-4E33-AA70-8FA2267B6C8F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.Persistence", "server\Persistence\HeringerSoftware.AngularDotNet.Core.Persistence.csproj", "{E3A30D23-C860-47FB-8E15-EBFD0887298B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68679B73-B36D-4E33-AA70-8FA2267B6C8F} = {68679B73-B36D-4E33-AA70-8FA2267B6C8F}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.Model.Tests", "server\Model\Tests\HeringerSoftware.AngularDotNet.Core.Model.Tests.csproj", "{FD63D621-F41E-4394-925D-02D199FBE7C2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68679B73-B36D-4E33-AA70-8FA2267B6C8F} = {68679B73-B36D-4E33-AA70-8FA2267B6C8F}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.WebAPI", "server\WebAPI\HeringerSoftware.AngularDotNet.Core.WebAPI.csproj", "{29B6912A-0240-46A1-894F-8F94CF3B5137}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.WebAPI.Tests", "server\WebAPI\Tests\HeringerSoftware.AngularDotNet.Core.WebAPI.Tests.csproj", "{4DD543FB-A893-456D-AE88-8C5624F73F72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.Persistence.EFPersistence", "server\Persistence\EFPersistence\HeringerSoftware.AngularDotNet.Core.Persistence.EFPersistence.csproj", "{038032CA-10A3-4E8C-83DA-9ED3BBF0D9C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.Persistence.EFPersistence.Tests", "server\Persistence\EFPersistence\Tests\HeringerSoftware.AngularDotNet.Core.Persistence.EFPersistence.Tests.csproj", "{CD36C213-6EFB-4546-84D8-3FEA6423D6CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.Core.DataTransferObjects", "server\DataTransferObjects\HeringerSoftware.AngularDotNet.Core.DataTransferObjects.csproj", "{8D62465B-8121-4E87-8E88-43BC3D211020}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.CommonLibraries", "server\CommonLibraries\HeringerSoftware.AngularDotNet.CommonLibraries.csproj", "{09F66A69-AF69-4BBC-98BE-2F7C11CF682A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeringerSoftware.AngularDotNet.CommonLibraries.Tests", "server\CommonLibraries\Tests\HeringerSoftware.AngularDotNet.CommonLibraries.Tests.csproj", "{66674A29-E3D2-40CF-B215-39C4D5768426}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68679B73-B36D-4E33-AA70-8FA2267B6C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68679B73-B36D-4E33-AA70-8FA2267B6C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68679B73-B36D-4E33-AA70-8FA2267B6C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68679B73-B36D-4E33-AA70-8FA2267B6C8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3A30D23-C860-47FB-8E15-EBFD0887298B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A30D23-C860-47FB-8E15-EBFD0887298B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A30D23-C860-47FB-8E15-EBFD0887298B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A30D23-C860-47FB-8E15-EBFD0887298B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD63D621-F41E-4394-925D-02D199FBE7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD63D621-F41E-4394-925D-02D199FBE7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD63D621-F41E-4394-925D-02D199FBE7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD63D621-F41E-4394-925D-02D199FBE7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B6912A-0240-46A1-894F-8F94CF3B5137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B6912A-0240-46A1-894F-8F94CF3B5137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B6912A-0240-46A1-894F-8F94CF3B5137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B6912A-0240-46A1-894F-8F94CF3B5137}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DD543FB-A893-456D-AE88-8C5624F73F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD543FB-A893-456D-AE88-8C5624F73F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD543FB-A893-456D-AE88-8C5624F73F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DD543FB-A893-456D-AE88-8C5624F73F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{038032CA-10A3-4E8C-83DA-9ED3BBF0D9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{038032CA-10A3-4E8C-83DA-9ED3BBF0D9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{038032CA-10A3-4E8C-83DA-9ED3BBF0D9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{038032CA-10A3-4E8C-83DA-9ED3BBF0D9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD36C213-6EFB-4546-84D8-3FEA6423D6CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD36C213-6EFB-4546-84D8-3FEA6423D6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD36C213-6EFB-4546-84D8-3FEA6423D6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD36C213-6EFB-4546-84D8-3FEA6423D6CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D62465B-8121-4E87-8E88-43BC3D211020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D62465B-8121-4E87-8E88-43BC3D211020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D62465B-8121-4E87-8E88-43BC3D211020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D62465B-8121-4E87-8E88-43BC3D211020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F66A69-AF69-4BBC-98BE-2F7C11CF682A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F66A69-AF69-4BBC-98BE-2F7C11CF682A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F66A69-AF69-4BBC-98BE-2F7C11CF682A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F66A69-AF69-4BBC-98BE-2F7C11CF682A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66674A29-E3D2-40CF-B215-39C4D5768426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66674A29-E3D2-40CF-B215-39C4D5768426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66674A29-E3D2-40CF-B215-39C4D5768426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66674A29-E3D2-40CF-B215-39C4D5768426}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6F3B7EC-583B-4B69-8B84-E1CBF2F278EC}
+	EndGlobalSection
+EndGlobal

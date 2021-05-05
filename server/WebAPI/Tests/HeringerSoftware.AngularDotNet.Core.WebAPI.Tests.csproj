@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Mocks\MockEntity.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityServer4" Version="4.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="MilestoneTG.NHibernate.Driver.Sqlite.Microsoft" Version="1.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataTransferObjects\HeringerSoftware.AngularDotNet.Core.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\..\Model\HeringerSoftware.AngularDotNet.Core.Model.csproj" />
+    <ProjectReference Include="..\..\Persistence\EFPersistence\HeringerSoftware.AngularDotNet.Core.Persistence.EFPersistence.csproj" />
+    <ProjectReference Include="..\..\Persistence\HeringerSoftware.AngularDotNet.Core.Persistence.csproj" />
+    <ProjectReference Include="..\HeringerSoftware.AngularDotNet.Core.WebAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

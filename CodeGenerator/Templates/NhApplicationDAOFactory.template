@@ -1,0 +1,10 @@
+public {{ENTITY}}DAO {{ENTITY}}DAO
+{
+	get
+	{
+		if (_{{LOWER_ENTITY}}DAO == null)
+			_{{LOWER_ENTITY}}DAO = new Nh{{ENTITY}}DAO(this.SessionInstance);
+		return _{{LOWER_ENTITY}}DAO;
+	}
+}
+private {{ENTITY}}DAO _{{LOWER_ENTITY}}DAO = null;

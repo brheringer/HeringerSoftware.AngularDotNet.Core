@@ -1,0 +1,25 @@
+<div class="input-group mb-2 mb-sm-0">
+  <div class="input-group-prepend">
+    <div *ngIf="label" class="input-group-text msf-field-type-addon"><img src="assets/select_24px.svg" /></div>
+    <div *ngIf="label" class="input-group-text msf-field-label-addon">{{label}}</div>
+  </div>
+  <select class="form-control field-combo" id="field-TODO-NAME" name="field-TODO-NAME"
+          [ngModel]="item"
+          (ngModelChange)="item=$event;changeItem()"
+          [compareWith]="compareEntities"
+          [required]="required ? true : false"
+          [disabled]="disabled ? true : false"
+          #name="ngModel">
+    <option selected="" value=""></option>
+    <option [ngValue]="i" *ngFor="let i of items">{{i.presentation}}</option>
+  </select>
+  <div *ngIf="label" class="input-group-append">
+    <div class="input-group-text msf-field-help-addon">
+      <img src="assets/help_24px.svg"
+           [title]="tip" />
+    </div>
+    <div [hidden]="name.valid || name.pristine" class="msf-field-invalid-msg">
+      Campo obrigatório.
+    </div>
+  </div>
+</div>

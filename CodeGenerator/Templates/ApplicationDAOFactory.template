@@ -1,0 +1,1 @@
+{{ENTITY}}DAO {{ENTITY}}DAO { get; }

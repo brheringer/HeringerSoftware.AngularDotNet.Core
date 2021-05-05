@@ -1,0 +1,65 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
+import { AlertService } from '../../metalsoft-core/local-services/alert.service';
+import { {{COLLECTION}} } from '../../model/{{LOWER_COLLECTION}}.model';
+import { {{ENTITY}}Service } from '../../services/{{LOWER_ENTITY}}.service';
+
+@Component({
+  selector: '{{LOWER_COLLECTION}}-list',
+  templateUrl: './{{LOWER_COLLECTION}}-list.component.html',
+  styleUrls: ['./{{LOWER_COLLECTION}}-list.component.css'],
+  providers: [{{ENTITY}}Service]
+})
+export class {{COLLECTION}}ListComponent implements OnInit {
+
+  public model = new {{COLLECTION}}();
+  public showFilters = true;
+  public searchAsYouTypeSubject = new Subject();
+  public searchAsYouTypeObservable = new Subscription(); //new Observable<string>();
+
+  constructor(
+    private service: {{ENTITY}}Service,
+    private alertService: AlertService,
+    private router: Router) { }
+
+  ngOnInit() {
+    this.search();
+
+    this.searchAsYouTypeObservable = this.searchAsYouTypeSubject
+      .debounceTime(300)
+      .subscribe(() => {
+        this.search();
+      })
+  }
+
+  searchAsYouType(): void {
+    this.searchAsYouTypeSubject.next();
+  }
+
+  search(): void
+  {
+    this.service.search(this.model)
+      .subscribe(dto => {
+      if (!dto.response.hasException) {
+        this.model.items = dto.items; //refresh
+      }
+    });
+  }
+
+  createNew(): void
+  {
+    this.router.navigateByUrl('/{{LOWER_ENTITY}}');
+  }
+
+  expand(id: number): void
+  {
+    this.router.navigateByUrl(`/{{LOWER_ENTITY}}/${id}`);
+  }
+
+}

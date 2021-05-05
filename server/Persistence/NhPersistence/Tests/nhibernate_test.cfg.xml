@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+  
+  <session-factory name="NHibernate.Test">
+    <!--<property name="connection.driver_class">NHibernate.Driver.SQLiteDriver, NHibernate.Driver.SQLite</property>-->
+	<property name="connection.driver_class">MilestoneTG.NHibernate.Driver.Sqlite.Microsoft.MicrosoftSqliteDriver, MilestoneTG.NHibernate.Driver.Sqlite.Microsoft</property>
+    <property name="dialect">NHibernate.Dialect.SQLiteDialect</property>
+		<!--<property name="hbm2ddl.auto">create-drop</property> the code does that (BaseTest.SetUp)-->
+		<property name="hbm2ddl.keywords">none</property>
+		<property name="cache.use_second_level_cache">true</property>
+		<property name="cache.use_query_cache" >true</property>
+		<property name="cache.provider_class">NHibernate.Cache.HashtableCacheProvider</property>
+
+    <!-- DateTimeFormatString allows to prevent storing the fact that written date was having kind UTC,
+    which dodges the undesirable time conversion to local done on reads by System.Data.SQLite.
+    See https://system.data.sqlite.org/index.html/tktview/44a0955ea344a777ffdbcc077831e1adc8b77a36
+    and https://github.com/nhibernate/nhibernate-core/issues/1362 -->
+    <property name="connection.connection_string">Data Source=TestMetalSoftCore.db</property>
+
+		<!--<mapping resource="MetalSoft.Core.Persistence.NhPersistence.Mapping.User.hbm.xml"
+             assembly="MetalSoft.Core.Persistence.NhPersistence"/>
+	  <mapping resource="MetalSoft.Core.Persistence.NhPersistence.Mapping.UserProfile.hbm.xml"
+		   assembly="MetalSoft.Core.Persistence.NhPersistence"/>
+	  <mapping resource="MetalSoft.Core.Persistence.NhPersistence.Mapping.UserProfileAssignment.hbm.xml"
+	   assembly="MetalSoft.Core.Persistence.NhPersistence"/>
+	  <mapping resource="MetalSoft.Core.Persistence.NhPersistence.Mapping.UserSession.hbm.xml"
+             assembly="MetalSoft.Core.Persistence.NhPersistence"/>-->
+
+</session-factory>
+</hibernate-configuration>

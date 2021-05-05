@@ -1,0 +1,13 @@
+using MetalSoft.Core.Persistence;
+using MetalSoft.Riscos.Model;
+using System;
+using System.Collections.Generic;
+
+namespace MetalSoft.{{APPLICATION}}.Persistence
+{
+	public interface {{ENTITY}}DAO
+		: DAO<{{ENTITY}}>
+	{
+		IList<{{ENTITY}}> Search({{FILTERS}});
+	}
+}
