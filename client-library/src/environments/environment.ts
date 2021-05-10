@@ -6,10 +6,10 @@ export const environment = {
   production: false,
   serverUrl: 'http://localhost:8080/api/',
   identity: {
-    url: 'http://gama:99',
-    clientId: 'metalzilla-app',
-    clientSecret: 'metalzilla-app-as-a-client-secret',
-    scope: 'metalzilla-api'
+    url: 'http://serber:99',
+    clientId: 'givenname-app',
+    clientSecret: 'givenname-app-as-a-client-secret',
+    scope: 'givenname-api'
   }
 };
 
